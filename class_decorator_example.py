@@ -1,6 +1,7 @@
 """
 idea - create a decorator that logs the time spent by the function it decorates
 """
+import functools
 from time import sleep
 
 
@@ -10,6 +11,7 @@ class LogTime:
     """
     def __init__(self, fnc):
         self.fnc = fnc
+        functools.update_wrapper(self, fnc)
 
     def __call__(self, *args, **kwargs):
         import time

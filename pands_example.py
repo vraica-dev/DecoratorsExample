@@ -3,6 +3,7 @@ idea - create a class decorator to apply along with the dataframe editing functi
       - 'titles' up the column names and removes the blank spaces that may occur;
 """
 import pandas as pd
+import functools
 
 
 class FormatColumns:
@@ -11,6 +12,7 @@ class FormatColumns:
     """
     def __init__(self, fnc):
         self.fnc = fnc
+        functools.update_wrapper(self, fnc)
 
     def __call__(self, *args, **kwargs):
         try:
@@ -28,6 +30,7 @@ def format_colums(fnc):
     same decorator as above but other mehtod - function;
     returns the same as FormatColumns
     """
+    @functools.wraps(fnc)
     def wrapper(*args, **kwargs):
         try:
             out_df = pd.DataFrame(fnc(*args, **kwargs))
@@ -56,6 +59,8 @@ dummy_df = pd.read_excel(r'data/dummy.xlsx')
 man_df = manipulate_df(dummy_df)
 print(man_df)  #  Name  Age   Location  Job  Age_To_Months
 
+
+print(manipulate_df.__name__) # manipulated_df; without the functools.wraps/update_wrapper will return <wrapper>
 
 
 

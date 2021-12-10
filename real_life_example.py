@@ -1,6 +1,7 @@
 """
 idea - create a decorator that only logs to a file when an error arises
 """
+import functools
 
 
 class ErrorLogger:
@@ -9,6 +10,7 @@ class ErrorLogger:
     """
     def __init__(self, fnc):
         self.fnc = fnc
+        functools.update_wrapper(self, fnc)
 
     def __call__(self, *args, **kwargs):
         import datetime

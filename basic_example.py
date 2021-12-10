@@ -2,6 +2,7 @@
 idea - create a decorator that parse the arg from the func and return only the file name;
        e.g from  <C:\Test\test\Pictures\CaptureETA.JPG'> only <CaptureETA.JPG> will be returned;
 """
+import functools
 
 my_file = r'V:\Test\test\Pictures\CaptureETA.JPG'
 
@@ -10,7 +11,7 @@ def keep_filename_only(fnc):
     """
     decorator that returns the filename only from a path
     """
-
+    @functools.wraps(fnc)
     def wrapper(*args, **kwargs):
         try:
             interim_output = fnc(*args, **kwargs)
